@@ -1,0 +1,74 @@
+<head>
+<script src="https://fb.me/react-0.13.3.js"></script>
+<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-5 target">
+			</div>
+		</div>
+	</div>
+</body>
+
+<script type="text/jsx">
+	// define a class
+	var Badge = React.createClass({
+		render: function(){
+
+			return <button className="btn btn-primary" type="button">
+  				{this.props.title} <span className="badge">{this.props.number}</span>
+			</button>	
+		}
+	});
+
+	var Thumbnail = React.createClass({
+		render: function() {
+			return <div className="thumbnail">
+      			<img src={this.props.imageUrl} alt="..."/>
+      			<div className="caption">
+        			<h3>{this.props.header}</h3>
+        			<p>{this.props.description}</p>
+        			<p>
+        				<Badge title={this.props.title} number={this.props.number}/>
+        			</p>
+      			</div>
+    		</div>
+		}
+	});
+
+	var ThumbnailList = React.createClass({
+		render: function() {
+			var list = this.props.thumbnailData.map(function(thumbnailProps){
+				return <Thumbnail {...thumbnailProps}/>
+			});
+			return <div>
+				{list}
+			</div>
+		}
+	});
+
+	var options = {
+
+		thumbnailData: [{
+			title: 'See Tutorial',
+			number: '32',
+			header: 'React',
+			description: 'blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah',
+			imageUrl: 'http://formatjs.io/img/react.svg'
+		},{
+			title: 'See Tutorial',
+			number: '12',
+			header: 'Learn Gulp',
+			description: 'blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah',
+			imageUrl: 'https://avatars0.githubusercontent.com/u/6200624?v=3&s=400'
+	}]
+};
+
+	// react render this shit
+	var element = React.createElement(ThumbnailList, options);
+	
+	// after, place it in my body tag
+	React.render(element, document.querySelector('.target'));
+</script>
